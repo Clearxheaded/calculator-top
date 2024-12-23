@@ -3,8 +3,6 @@ const operand2 = 0;
 const operator = '';
 
 
-
-
 function add(x, y) {
     return x + y;
 }
@@ -21,7 +19,37 @@ function divide(x, y) {
     return x / y;
 }
 
-console.log(add(5, 7));
-console.log(subtract(5, 7));
-console.log(multiply(5, 7));
-console.log(divide(5, 7));
+function operate(x, y, operation) {
+    switch (operation) {
+        case '+':
+            add(x, y);
+            break;
+        case '-':
+            subtract(x, y);
+            break;
+        case '*':
+            multiply(x, y);
+            break;
+        case '/':
+            divide(x ,y);
+            break;
+    }
+}
+ 
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const buttonText = event.target.textContent;
+        if (buttonText === 'clear') {
+            display.textContent = '';
+        }
+        else if (buttonText === '=') {
+            display.textContent = 'Result'; // placeholder until I evaluate 
+        }
+        else {
+            display.textContent += buttonText;
+        }
+    })
+})
