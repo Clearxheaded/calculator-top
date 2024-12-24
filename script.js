@@ -45,27 +45,35 @@ buttons.forEach(button => {
 
         if (buttonText === 'clear') {
             display.textContent = '';
+            operand1 = 0;
+            operand2 = 0;
+            operator = '';
+            return;
         }
         else if (buttonText === '=') {
-
             let indexOfOperator = -1;
             let operatorFound = false;
 
-            for(let i = 0; i < display.textContent.length; i++) {
+            for (let i = 0; i < display.textContent.length; i++) {
                 let char = display.textContent[i];
-                if (char === '+' || char === '-' || char === '*' || char === '/') {
+                if (['+', '-', '*', '/'].includes(char)) {
                     if (operatorFound) {
                         display.textContent = "Invalid input";
                         return;
                     }
-                    operator = char; // getting the operator
-                    indexOfOperator = i; // getting the operator's position
+                    operator = char; 
+                    indexOfOperator = i; 
                     operatorFound = true;
                 }
             }
 
-            operand1 = parseFloat(display.textContent.slice(0, indexOfOperator)); // getting first operand
-            operand2 = parseFloat(display.textContent.slice(indexOfOperator+1)); // getting the second operand
+            operand1 = parseFloat(display.textContent.slice(0, indexOfOperator)); 
+            operand2 = parseFloat(display.textContent.slice(indexOfOperator + 1)); 
+
+            if (isNaN(operand1) || isNaN(operand2)) {
+                display.textContent = "Invalid input";
+                return;
+            }
 
             if (operator === '/' && operand2 === 0) {
                 display.textContent = "Can't divide by zero!";
@@ -74,13 +82,26 @@ buttons.forEach(button => {
 
             let result = operate(operand1, operand2, operator); 
             operand1 = parseFloat(result.toFixed(2));
-            display.textContent = operand1; // assigning operand1 to the display content so that the running calculations can be performed
+            display.textContent = operand1;
 
             operand2 = 0;
             operator = '';         
         }
+        else if (['+', '-', '*', '/'].includes(buttonText)) {
+            if (operator) {
+                display.textContent = display.textContent.slice(0, -1) + buttonText;
+            } else {
+                display.textContent += buttonText;
+            }
+            operator = buttonText;
+        }
+        else if (buttonText === '.') {
+            if (!display.textContent.includes('.')) {
+                display.textContent += buttonText;
+            }
+        }
         else {
             display.textContent += buttonText;
         }
-    })
-})
+    });
+});
