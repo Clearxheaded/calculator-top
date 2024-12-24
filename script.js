@@ -47,18 +47,37 @@ buttons.forEach(button => {
             display.textContent = '';
         }
         else if (buttonText === '=') {
-            let indexOfOperator = 0;
-            // find operand1, operator2 and the operator
+
+            let indexOfOperator = -1;
+            let operatorFound = false;
+
             for(let i = 0; i < display.textContent.length; i++) {
                 let char = display.textContent[i];
                 if (char === '+' || char === '-' || char === '*' || char === '/') {
-                    operand1 = parseInt(display.textContent.slice(0, i)); // getting first operand
-                    operator = char;
-                    indexOfOperator = i;
+                    if (operatorFound) {
+                        display.textContent = "Invalid input";
+                        return;
+                    }
+                    operator = char; // getting the operator
+                    indexOfOperator = i; // getting the operator's position
+                    operatorFound = true;
                 }
             }
-            operand2 = parseInt(display.textContent.slice(indexOfOperator+1)); // getting the second operand
-            display.textContent = operate(operand1, operand2, operator); // placeholder until I evaluate 
+
+            operand1 = parseFloat(display.textContent.slice(0, indexOfOperator)); // getting first operand
+            operand2 = parseFloat(display.textContent.slice(indexOfOperator+1)); // getting the second operand
+
+            if (operator === '/' && operand2 === 0) {
+                display.textContent = "Can't divide by zero!";
+                return;
+            }
+
+            let result = operate(operand1, operand2, operator); 
+            operand1 = parseFloat(result.toFixed(2));
+            display.textContent = operand1; // assigning operand1 to the display content so that the running calculations can be performed
+
+            operand2 = 0;
+            operator = '';         
         }
         else {
             display.textContent += buttonText;
