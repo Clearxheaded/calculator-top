@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-areas:
+        "display display display display"
+        "clear clear equals equals"
+        "seven eight nine divide"
+        "four five six multiply"
+        "one two three minus"
+        "zero dot operator plus";
+    gap: 10px;
+    width: 400px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.display {
+    grid-area: display;
+    background-color: #fff;
+    padding: 20px;
+    font-size: 2rem;
+    text-align: right;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    min-height: 60px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+button {
+    padding: 20px;
+    font-size: 1.5rem;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+button:active {
+    background-color: #ccc;
+}
+
+#clear-btn {
+    grid-area: clear;
+    background-color: #ff9494;
+    color: white;
+}
+
+#clear-btn:hover {
+    background-color: #ff7070;
+}
+
+#equals-btn {
+    grid-area: equals;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#equals-btn:hover {
+    background-color: #45a049;
+}
+
+#plus-btn, #minus-btn, #multiply-btn, #divide-btn {
+    background-color: #666;
+    color: white;
+}
+
+#plus-btn:hover, #minus-btn:hover, #multiply-btn:hover, #divide-btn:hover {
+    background-color: #555;
+}
+
+#seven-btn { grid-area: seven; }
+#eight-btn { grid-area: eight; }
+#nine-btn { grid-area: nine; }
+#four-btn { grid-area: four; }
+#five-btn { grid-area: five; }
+#six-btn { grid-area: six; }
+#one-btn { grid-area: one; }
+#two-btn { grid-area: two; }
+#three-btn { grid-area: three; }
+#zero-btn { grid-area: zero; }
+#plus-btn { grid-area: plus; }
+#minus-btn { grid-area: minus; }
+#multiply-btn { grid-area: multiply; }
+#divide-btn { grid-area: divide; }
